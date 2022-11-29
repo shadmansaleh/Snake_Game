@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/shadman/projects/cpp/snake/oop",
+  "command": "/usr/bin/c++ -I/home/shadman/projects/cpp/snake/oop/include -Wall -Wpedantic -Wextra -fexceptions -fsanitize=address -std=gnu++17 -o CMakeFiles/snake.dir/src/Bonus.cpp.o -c /home/shadman/projects/cpp/snake/oop/src/Bonus.cpp",
+  "file": "/home/shadman/projects/cpp/snake/oop/src/Bonus.cpp"
+},
+{
+  "directory": "/home/shadman/projects/cpp/snake/oop",
+  "command": "/usr/bin/c++ -I/home/shadman/projects/cpp/snake/oop/include -Wall -Wpedantic -Wextra -fexceptions -fsanitize=address -std=gnu++17 -o CMakeFiles/snake.dir/src/CharScreen.cpp.o -c /home/shadman/projects/cpp/snake/oop/src/CharScreen.cpp",
+  "file": "/home/shadman/projects/cpp/snake/oop/src/CharScreen.cpp"
+},
+{
+  "directory": "/home/shadman/projects/cpp/snake/oop",
+  "command": "/usr/bin/c++ -I/home/shadman/projects/cpp/snake/oop/include -Wall -Wpedantic -Wextra -fexceptions -fsanitize=address -std=gnu++17 -o CMakeFiles/snake.dir/src/Entity.cpp.o -c /home/shadman/projects/cpp/snake/oop/src/Entity.cpp",
+  "file": "/home/shadman/projects/cpp/snake/oop/src/Entity.cpp"
+},
+{
+  "directory": "/home/shadman/projects/cpp/snake/oop",
+  "command": "/usr/bin/c++ -I/home/shadman/projects/cpp/snake/oop/include -Wall -Wpedantic -Wextra -fexceptions -fsanitize=address -std=gnu++17 -o CMakeFiles/snake.dir/src/Fruit.cpp.o -c /home/shadman/projects/cpp/snake/oop/src/Fruit.cpp",
+  "file": "/home/shadman/projects/cpp/snake/oop/src/Fruit.cpp"
+},
+{
+  "directory": "/home/shadman/projects/cpp/snake/oop",
+  "command": "/usr/bin/c++ -I/home/shadman/projects/cpp/snake/oop/include -Wall -Wpedantic -Wextra -fexceptions -fsanitize=address -std=gnu++17 -o CMakeFiles/snake.dir/src/SnakeBody.cpp.o -c /home/shadman/projects/cpp/snake/oop/src/SnakeBody.cpp",
+  "file": "/home/shadman/projects/cpp/snake/oop/src/SnakeBody.cpp"
+},
+{
+  "directory": "/home/shadman/projects/cpp/snake/oop",
+  "command": "/usr/bin/c++ -I/home/shadman/projects/cpp/snake/oop/include -Wall -Wpedantic -Wextra -fexceptions -fsanitize=address -std=gnu++17 -o CMakeFiles/snake.dir/src/main.cpp.o -c /home/shadman/projects/cpp/snake/oop/src/main.cpp",
+  "file": "/home/shadman/projects/cpp/snake/oop/src/main.cpp"
+}
+]
