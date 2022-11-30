@@ -1,19 +1,19 @@
 #include "CharScreen.hpp"
 #include <cstdlib>
 
-// initiates screan by allocating requiared mwmory and cleaning terminal
+// initiates screen by allocating required memory and cleaning terminal
 void CharScreen::init(int W, int H) {
   if (H > 0 && W > 0) {
     height = H;
     width = W;
-    scr = (char *)std::malloc(H * W * sizeof(char));
+    scr = (char *)std::malloc((H + 1) * (W + 1) * sizeof(char));
     if (scr) {
-      std::memset(scr, ' ', height * width);
-      oldScr = (char *)std::malloc(H * W * sizeof(char));
+      std::memset(scr, ' ', (height + 1) * (width + 1));
+      oldScr = (char *)std::malloc((H + 1) * (W + 1) * sizeof(char));
       if (oldScr) {
-        std::memset(oldScr, 0, height * width);
+        std::memset(oldScr, 0, (height + 1) * (width + 1));
         clearTerminal();
-        refreash();
+        refresh();
       } else
         setDefault();
     } else
@@ -25,13 +25,13 @@ void CharScreen::init(int W, int H) {
 char CharScreen::getVal(char *sc, int x, int y) {
   // check if input is valid
   if (sc && x <= width && y <= height && x >= 0 && y >= 0) {
-    // width+1 is requiared to make the last char of line and the first char of
+    // width+1 is required to make the last char of line and the first char of
     // line differ
     return *(sc + (((width + 1) * y) + x));
   } else
     return 0;
 }
-// oposite of getVal it change a char in a location
+// opposite of getVal it change a char in a location
 inline int CharScreen::setVal(char *sc, int x, int y, char ch) {
   if (sc && x <= width && y <= height && x >= 0 && y >= 0) { // same as getVal
     *(sc + (((width + 1) * y) + x)) = ch;
@@ -39,7 +39,7 @@ inline int CharScreen::setVal(char *sc, int x, int y, char ch) {
   } else
     return -1;
 }
-// it is used to reset the screen or to dustruct it . It sets default vslues
+// it is used to reset the screen or to destruct it . It sets default values
 void CharScreen::setDefault() {
   if (scr)
     free(scr);
@@ -51,7 +51,7 @@ void CharScreen::setDefault() {
   width = 0;
 }
 
-// draws one char at a time on the screen using ansi excape sequence
+// draws one char at a time on the screen using ansi escape sequence
 void CharScreen::draw(int x, int y) {
   if (x <= width && y <= height && x >= 0 &&
       y >= 0) { //\x1b[b;aH sends sursor to (a,b) location
@@ -67,7 +67,7 @@ void CharScreen::clearBottom() {
               << "\x1b[" << height + 1 << ";0H" << std::flush;
   }
 }
-// Constuctor just cslls init
+// Constructor just calls init
 CharScreen::CharScreen(int W, int H) {
   //  if(maxHeight <= 0 || maxWidth <= 0)
   getMaxHW();
@@ -99,7 +99,7 @@ int CharScreen::clear() {
 int CharScreen::fillScreen(char ch) {
   if (scr) {
     memset(scr, ch, height * width);
-    refreash();
+    refresh();
     return 1;
   } else
     return -1;
@@ -121,8 +121,8 @@ int CharScreen::update(int x, int y, char *ch) {
 }
 // adds a string at certain line
 int CharScreen::update(int y, char *ch) { return update(0, y, ch); }
-// refreashes the screen
-void CharScreen::refreash(int keepOld) {
+// refreshes the screen
+void CharScreen::refresh(int keepOld) {
   for (int i = 0; i <= height; ++i)
     for (int j = 0; j <= width; ++j) {
       if (getVal(scr, j, i) != getVal(oldScr, j, i)) {
