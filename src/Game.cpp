@@ -41,7 +41,7 @@ void Game::game_loop(double dt) {
     if (event.type == sf::Event::Closed)
       win.close();
     else if (event.type == sf::Event::Resized) {
-      win.setSize(sf::Vector2<uint>(event.size.width, event.size.height));
+      win.setSize(sf::Vector2<unsigned int>(event.size.width, event.size.height));
     } else if (event.type == sf::Event::KeyPressed) {
       handle_keyboard(event);
     }
