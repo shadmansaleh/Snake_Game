@@ -40,3 +40,4 @@ build.ninja
 .ninja_deps
 .cache/clangd/index
 snake
+.deps

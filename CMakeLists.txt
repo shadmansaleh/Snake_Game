@@ -1,19 +1,50 @@
 cmake_minimum_required(VERSION 3.0)
-project(DinoGame)
+
+project(SnakeGame VERSION 1.0)
+include(FetchContent)
+
+if (NOT CMAKE_BUILD_TYPE)
+  message(STATUS "No build type selected, default to Debug")
+  set(CMAKE_BUILD_TYPE "Debug")
+endif()
+
+set(BUILD_SHARED_LIBRARIES OFF)
+set(FETCHCONTENT_BASE_DIR "${PROJECT_SOURCE_DIR}/.deps")
+FetchContent_Declare(
+  SFML
+  URL https://github.com/SFML/SFML/archive/refs/tags/2.5.1.tar.gz
+  URL_HASH MD5=0d8a10fad7f10fa7b4453e647fb6b1a8
+)
+FetchContent_MakeAvailable(SFML)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_compile_options(
-  "-Wall" "-Wpedantic" "-Wextra" "-fexceptions"
-  "-fsanitize=address"
-  "$<$<CONFIG:DEBUG>:-O0;-gdwarf-4;-ggdb>"
-)
-
-add_link_options(-fsanitize=address)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_compile_options(
+    -Wall
+    -Wpedantic
+    -Wextra
+    -fexceptions
+    -O0
+    -g
+    -fsanitize=address
+  )
+  add_link_options(-fsanitize=address)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+  add_compile_options(-O2)
+endif()
 
 include_directories(include)
 
-file(GLOB SRC_DINO_GAME 
+file(GLOB SRC_SNAKE_GAME 
   "${PROJECT_SOURCE_DIR}/src/*.cpp")
 
-add_executable(snake ${SRC_DINO_GAME})
+add_executable(snake ${SRC_SNAKE_GAME})
+
+target_link_libraries(
+ snake
+ sfml-graphics
+ sfml-window
+ sfml-system
+ sfml-audio
+)
