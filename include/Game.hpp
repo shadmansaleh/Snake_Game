@@ -6,6 +6,7 @@
 #include "Fruit.hpp"
 #include "Bonus.hpp"
 #include "Utils.hpp"
+#include "SpriteSheet.hpp"
 
 class Game {
   public:

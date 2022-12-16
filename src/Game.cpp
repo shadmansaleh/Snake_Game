@@ -1,3 +1,4 @@
+#include "SpriteSheet.hpp"
 #include "Game.hpp"
 #include "Snake.hpp"
 #include "Utils.hpp"
@@ -13,6 +14,7 @@
 const int BlockWidth = 30, BlockHeight = 30;
 const int MapWidth = 40, MapHeight = 23;
 constexpr int FPS = 60;
+const SpriteSheet sprites("assets/sprites/Snake.png", 64, 64, 16, 16);
 
 using sf::Keyboard;
 

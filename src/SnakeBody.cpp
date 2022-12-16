@@ -6,19 +6,21 @@
 
 std::pair<int, int> dirs[] = {
   std::make_pair(0, -1),
-  std::make_pair(0, 1),
+  std::make_pair(1, 0),
   std::make_pair(-1, 0),
-  std::make_pair(1, 0)
+  std::make_pair(0, 1)
 };
 
 void SnakeBody::move(Dir mv) { move_vector = mv; }
 Dir SnakeBody::get_move_dir() { return move_vector; }
 
 void SnakeBody::draw(sf::RenderWindow& win) {
-  sf::RectangleShape rect(sf::Vector2<float>(BlockWidth, BlockHeight));
-  rect.setPosition(posX * BlockWidth, posY * BlockHeight);
-  rect.setFillColor(sf::Color::Cyan);
-  win.draw(rect);
+  auto sprite = sprites[sprite_id.first][sprite_id.second];
+  // sf::RectangleShape rect(sf::Vector2<float>(BlockWidth, BlockHeight));
+  sprite.setPosition(posX * BlockWidth, posY * BlockHeight);
+  sprite.setRotation(sprite_rotate);
+  // rect.setFillColor(sf::Color::Cyan);
+  win.draw(sprite);
 }
 
 void SnakeBody::tick(double dt) {

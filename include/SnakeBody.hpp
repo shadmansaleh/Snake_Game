@@ -18,6 +18,10 @@ public:
 private:
   int move_speed = 1;
   Dir move_vector;
+  std::pair<int, int> sprite_id;
+  float sprite_rotate = 0;
+
+  friend class Snake;
 };
 
 #endif // SNAKE_BODY_HPP_DEFINED

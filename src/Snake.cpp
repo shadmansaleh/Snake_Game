@@ -1,7 +1,9 @@
 #include "Snake.hpp"
 #include "SnakeBody.hpp"
+#include "Utils.hpp"
 
 #include <iostream>
+#include <utility>
 constexpr double SNAKE_TICK_PERIOD = 1.0;
 extern std::pair<int, int> dirs[];
 
@@ -28,8 +30,34 @@ void Snake::tick(double dt) {
   for (auto &body_piece: body) {
     body_piece.tick(SNAKE_TICK_PERIOD);
   }
+  body.front().sprite_id = std::make_pair(0, body.front().get_move_dir());
+  body.back().sprite_id = std::make_pair(1, body.back().get_move_dir());
+  auto head_dir = body.front().get_move_dir();
+  auto piece_dir = body[1].get_move_dir();
+  if (head_dir == piece_dir) {
+    if (head_dir == Dir::LEFT || head_dir == Dir::RIGHT) {
+      body[1].sprite_id = std::make_pair(3, 1);
+    } else {
+      body[1].sprite_id = std::make_pair(3, 0);
+    }
+  } else {
+    body[1].sprite_id = std::make_pair(2, 0);
+    if (head_dir == Dir::LEFT) {
+     body[1].sprite_rotate = (piece_dir == Dir::UP ? 180.0f : 270.0f);
+    } else if (head_dir == Dir::RIGHT) {
+     body[1].sprite_rotate = (piece_dir == Dir::UP ? 90.0f : 0.0f);
+    } else if (head_dir == Dir::UP) {
+     body[1].sprite_rotate = (piece_dir == Dir::LEFT ? 0.0f : 180.0f);
+    } else if (head_dir == Dir::DOWN) {
+     body[1].sprite_rotate = (piece_dir == Dir::LEFT ? 90.0f : 180.0f);
+    }
+  }
   for (int i=body.size()-1; i > 0; i--) {
     body[i].move(body[i-1].get_move_dir());
+    if (i > 1 && i != (int)body.size()-1) {
+      body[i].sprite_id = body[i-1].sprite_id;
+      body[i].sprite_rotate = body[i-1].sprite_rotate;
+    }
   }
   this->move_lock = false;
 }
