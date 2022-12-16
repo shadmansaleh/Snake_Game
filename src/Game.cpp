@@ -1,10 +1,14 @@
 #include "Game.hpp"
 #include "Snake.hpp"
+#include "Utils.hpp"
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/WindowStyle.hpp>
 #include <iostream>
+#include <map>
+#include <utility>
+#include <time.h>
 
 const int BlockWidth = 30, BlockHeight = 30;
 const int MapWidth = 40, MapHeight = 23;
@@ -50,11 +54,24 @@ void Game::game_loop(double dt) {
   if (state == GameState::PAUSED) return;
   // Update
   snake.tick(dt);
+  if (snake.check_hit_body()) {
+    state = GameState::GAME_OVER;
+  }
+  if (snake.body[0] == fruit) {
+    snake.enlarge();
+    std::map<std::pair<int, int>, bool> restricted;
+    for (auto &body_piece: snake.body) {
+      restricted[body_piece.get_pos()] = true;
+    }
+    fruit.reposition(restricted);
+  }
 
   // redraw
   win.clear(sf::Color(100, 180, 80, 200));
-  snake.draw(win);
-  fruit.draw(win);
+  if (state == GameState::RUNNING) {
+    snake.draw(win);
+    fruit.draw(win);
+  }
   win.display();
 }
 

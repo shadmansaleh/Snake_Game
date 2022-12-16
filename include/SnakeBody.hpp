@@ -8,7 +8,7 @@
 
 class SnakeBody : public Entity {
 public:
-  SnakeBody(double x, double y) : Entity(x, y) {}
+  SnakeBody(int x, int y) : Entity(x, y) {}
   void move(Dir mv);
   Dir get_move_dir();
 
@@ -16,7 +16,7 @@ public:
   void tick(double dt);
 
 private:
-  double move_speed = 1;
+  int move_speed = 1;
   Dir move_vector;
 };
 

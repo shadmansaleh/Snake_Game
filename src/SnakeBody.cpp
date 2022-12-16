@@ -2,8 +2,9 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <utility>
+#include <array>
 
-const std::pair<int, int> dirs[] = {
+std::pair<int, int> dirs[] = {
   std::make_pair(0, -1),
   std::make_pair(0, 1),
   std::make_pair(-1, 0),

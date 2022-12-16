@@ -1,8 +1,11 @@
 #include "Fruit.hpp"
+#include "SnakeBody.hpp"
 #include "Utils.hpp"
 #include <cmath>
+#include <stdexcept>
+#include <cstdlib>
 
-Fruit::Fruit(double x, double y) : Entity(x, y) {}
+Fruit::Fruit(int x, int y) : Entity(x, y) {}
 
 void Fruit::draw(sf::RenderWindow& win) {
   double block_radius = std::sqrt(BlockHeight*BlockHeight + BlockWidth * BlockWidth);
@@ -12,4 +15,19 @@ void Fruit::draw(sf::RenderWindow& win) {
   win.draw(fruit);
 }
 
-void Fruit::tick(double) {}
+void Fruit::tick(double) {
+  throw std::runtime_error("Fruit can't tick");
+}
+
+void Fruit::reposition(std::map<std::pair<int, int>, bool> &restricted) {
+  bool found = false;
+  while (!found) {
+    int randx = rand() % MapWidth;
+    int randy = rand() % MapHeight;
+    if (!restricted[std::make_pair(randx, randy)]) {
+      posX = randx;
+      posY = randy;
+      found = true;
+    }
+  }
+}

@@ -20,6 +20,8 @@ class Game {
 
     void game_loop(double dt);
     void handle_keyboard(sf::Event event);
+    void gen_fruit();
+    void gen_bonus();
 };
 
 #endif // GAME_HPP_DEFINED

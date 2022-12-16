@@ -1,12 +1,12 @@
 #include "Entity.hpp"
 #include <utility>
 
-Entity::Entity(double x, double y) : posX{x}, posY{y} {}
+Entity::Entity(int x, int y) : posX{x}, posY{y} {}
 
-std::pair<double, double> Entity::get_pos() {
+std::pair<int, int> Entity::get_pos() {
   return std::make_pair(posX, posY);
 }
-void Entity::set_pos(std::pair<double, double> &pos) {
+void Entity::set_pos(std::pair<int, int> &pos) {
   posX = pos.first;
   posY = pos.second;
 }
