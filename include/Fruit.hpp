@@ -9,9 +9,10 @@
 class Fruit : public Entity {
 public:
   Fruit(int x, int y);
+  Fruit();
 
   void draw(sf::RenderWindow&);
-  void tick(double dt);
+  void tick();
   void reposition(std::map<std::pair<int, int>, bool> &restricted);
 };
 

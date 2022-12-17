@@ -14,9 +14,9 @@ void SnakeBody::draw(sf::RenderWindow& win) {
   win.draw(sprite);
 }
 
-void SnakeBody::tick(double dt) {
+void SnakeBody::tick() {
   auto cur_pos = this->get_pos();
-  cur_pos.first += dirs[this->move_vector].first * this->move_speed * dt;
-  cur_pos.second += dirs[this->move_vector].second * this->move_speed * dt;
+  cur_pos.first += dirs[this->move_vector].first * this->move_speed;
+  cur_pos.second += dirs[this->move_vector].second * this->move_speed;
   this->set_pos(cur_pos);
 }

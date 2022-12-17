@@ -6,6 +6,7 @@
 #include <cstdlib>
 
 Fruit::Fruit(int x, int y) : Entity(x, y) {}
+Fruit::Fruit() : Entity(0, 0) {}
 
 void Fruit::draw(sf::RenderWindow& win) {
   auto food = (*sprites)[3][2];
@@ -13,7 +14,7 @@ void Fruit::draw(sf::RenderWindow& win) {
   win.draw(food);
 }
 
-void Fruit::tick(double) {
+void Fruit::tick() {
   throw std::runtime_error("Fruit can't tick");
 }
 

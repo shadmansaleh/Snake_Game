@@ -32,7 +32,7 @@ void Snake::tick(double dt) {
   if (this->dt < SNAKE_TICK_PERIOD) return;
   this->dt -= SNAKE_TICK_PERIOD;
   for (auto &body_piece: body) {
-    body_piece.tick(SNAKE_TICK_PERIOD);
+    body_piece.tick();
   }
   set_sprite(0, 0);
   for (int i=1; i < (int)body.size()-1; i++) {

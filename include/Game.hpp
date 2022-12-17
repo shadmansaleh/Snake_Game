@@ -2,6 +2,7 @@
 #define GAME_HPP_DEFINED
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Font.hpp>
 #include "Snake.hpp"
 #include "Fruit.hpp"
 #include "Bonus.hpp"
@@ -16,9 +17,11 @@ class Game {
     void run();
   private:
     sf::RenderWindow win;
+    sf::Font font;
     Snake snake;
     Fruit fruit;
     GameState state;
+    int score;
 
     void game_loop(double dt);
     void handle_keyboard(sf::Event event);

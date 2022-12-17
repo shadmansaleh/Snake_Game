@@ -13,7 +13,7 @@ public:
   Dir get_move_dir();
 
   void draw(sf::RenderWindow&);
-  void tick(double dt);
+  void tick();
 
 private:
   int move_speed = 1;
