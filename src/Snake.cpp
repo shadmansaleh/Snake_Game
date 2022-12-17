@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <utility>
-static constexpr double SNAKE_TICK_PERIOD = 0.1;
+static constexpr double SNAKE_TICK_PERIOD = 0.15;
 
 Snake::Snake(int snake0x, int snake0y) {
   // initialize a snake with length 3

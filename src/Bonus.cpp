@@ -4,9 +4,8 @@
 void Bonus::draw(sf::RenderWindow &win) {
   if (timmer <= 0) return;
   auto bonus = (*sprites)[3][2];
-  // sf::RectangleShape bonus(sf::Vector2f(BlockWidth, BlockHeight));
-  // bonus.setFillColor(sf::Color::Magenta);
   bonus.setPosition((posX+0.5) * BlockWidth, (posY+0.5) * BlockHeight);
+  bonus.setScale(3, 3);
   sf::RectangleShape bar(sf::Vector2f(timmer / 10 * 10*BlockWidth, BlockHeight/2));
   bar.setFillColor(sf::Color::Magenta);
   bar.setPosition(0.5 * BlockWidth, 0.5 * BlockHeight);

@@ -42,5 +42,6 @@ void Fruit::init() {
   }
   mouse_sprite.setTexture(*mouse_tex);
   mouse_sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+  mouse_sprite.setScale(1.5, 1.5);
   mouse_sprite.setOrigin(32/2, 32/2);
 }
