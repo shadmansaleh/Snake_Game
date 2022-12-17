@@ -8,6 +8,7 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/WindowStyle.hpp>
+#include <cstdio>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -15,6 +16,7 @@
 #include <utility>
 #include <time.h>
 #include <string>
+#include <cstring>
 
 const int BlockWidth = 32, BlockHeight = 32;
 const int MapWidth = 40, MapHeight = 22;
@@ -40,7 +42,7 @@ Game::Game() :
 
   std::srand(std::time(0));
   sprites = new SpriteSheet("assets/sprites/Snake.png", 16, 16);
-  font.loadFromFile("assets/fonts/LoveGlitch.ttf");
+  font.loadFromFile("assets/fonts/Debug.otf");
   backgroundTex = new sf::Texture;
   backgroundTex->loadFromFile("assets/sprites/Snake.png", sf::IntRect(16*3, 16*3, 16, 16));
   backgroundTex->setRepeated(true);
@@ -95,6 +97,7 @@ void Game::game_loop(double dt) {
     }
     if (snake.body[0] == fruit) {
       snake.enlarge();
+      score++;
       std::map<std::pair<int, int>, bool> restricted;
       for (auto &body_piece: snake.body) {
         restricted[body_piece.get_pos()] = true;
@@ -106,6 +109,18 @@ void Game::game_loop(double dt) {
   // redraw
   win.clear();
   win.draw(backgroundSp);
+  {
+    sf::Text tx_score;
+    char score_txt[20];
+    tx_score.setFont(font);
+    tx_score.setCharacterSize(BlockHeight * 2);
+    tx_score.setFillColor(sf::Color::White);
+    std::sprintf(score_txt, "Score: %4d", score);
+    tx_score.setPosition((MapWidth - std::strlen(score_txt) - 2) * BlockWidth, BlockHeight);
+    tx_score.setString(score_txt);
+
+    win.draw(tx_score);
+  }
   snake.draw(win);
   fruit.draw(win);
   if (state != GameState::RUNNING) {
@@ -158,6 +173,6 @@ void Game::handle_keyboard(sf::Event event) {
       }
       break;
     default:
-      std::cout << "KeyPress not handled" << std::endl;
+      break;
   }
 }
