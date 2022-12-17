@@ -18,6 +18,7 @@ Snake::Snake(int snake0x, int snake0y) {
     set_sprite(i-1, i);
   }
   set_sprite(body.size()-2, body.size()-1);
+  this->dt = 0;
 }
 
 void Snake::draw(sf::RenderWindow& window) {
