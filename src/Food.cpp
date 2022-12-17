@@ -41,7 +41,7 @@ void Food::init() {
     throw std::runtime_error("Unable to load sprite");
   }
   mouse_sprite.setTexture(*mouse_tex);
-  mouse_sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-  mouse_sprite.setScale(1.5, 1.5);
-  mouse_sprite.setOrigin(32/2, 32/2);
+  mouse_sprite.setTextureRect(sf::IntRect(0, 0, BlockWidth, BlockHeight));
+  mouse_sprite.setScale(BlockWidth / mouse_tex->getSize().x * 1.5, BlockHeight / mouse_tex->getSize().y * 1.5);
+  mouse_sprite.setOrigin(BlockWidth/2, BlockHeight/2);
 }
