@@ -13,7 +13,8 @@ private:
   double dt;
   bool move_lock = false; // allow move dir to change only once per tick
 
-  void enlarge(); 
+  void enlarge();
+  void set_sprite(int prev, int cur, bool no_rotate=false);
 
 public:
   Snake(int snake0x, int snake0y);

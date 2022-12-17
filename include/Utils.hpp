@@ -6,6 +6,7 @@ enum Dir {UP=0, RIGHT=1, DOWN=2, LEFT=3};
 enum GameState {PAUSED, RUNNING, QUIT, INTRO, GAME_OVER};
 
 const extern int BlockWidth, BlockHeight, MapWidth, MapHeight;
-const extern SpriteSheet sprites;
+extern std::pair<int, int> dirs[];
+const extern SpriteSheet *sprites;
 
 #endif // !UTILS_DIR_HPP

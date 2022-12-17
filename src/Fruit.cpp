@@ -8,11 +8,9 @@
 Fruit::Fruit(int x, int y) : Entity(x, y) {}
 
 void Fruit::draw(sf::RenderWindow& win) {
-  double block_radius = std::sqrt(BlockHeight*BlockHeight + BlockWidth * BlockWidth);
-  sf::CircleShape fruit(block_radius/4);
-  fruit.setFillColor(sf::Color::Red);
-  fruit.setPosition(posX * BlockWidth+block_radius/8, posY * BlockHeight+block_radius/8);
-  win.draw(fruit);
+  auto food = (*sprites)[3][2];
+  food.setPosition((posX+0.5) * BlockWidth, (posY+0.5) * BlockHeight);
+  win.draw(food);
 }
 
 void Fruit::tick(double) {

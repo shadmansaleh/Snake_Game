@@ -4,22 +4,13 @@
 #include <utility>
 #include <array>
 
-std::pair<int, int> dirs[] = {
-  std::make_pair(0, -1),
-  std::make_pair(1, 0),
-  std::make_pair(-1, 0),
-  std::make_pair(0, 1)
-};
-
 void SnakeBody::move(Dir mv) { move_vector = mv; }
 Dir SnakeBody::get_move_dir() { return move_vector; }
 
 void SnakeBody::draw(sf::RenderWindow& win) {
-  auto sprite = sprites[sprite_id.first][sprite_id.second];
-  // sf::RectangleShape rect(sf::Vector2<float>(BlockWidth, BlockHeight));
-  sprite.setPosition(posX * BlockWidth, posY * BlockHeight);
+  auto sprite = (*sprites)[sprite_id.first][sprite_id.second];
+  sprite.setPosition((posX+.5f) * BlockWidth, (posY+.5f) * BlockHeight);
   sprite.setRotation(sprite_rotate);
-  // rect.setFillColor(sf::Color::Cyan);
   win.draw(sprite);
 }
 

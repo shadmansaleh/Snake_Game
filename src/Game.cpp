@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include "Snake.hpp"
 #include "Utils.hpp"
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -11,10 +12,21 @@
 #include <utility>
 #include <time.h>
 
-const int BlockWidth = 30, BlockHeight = 30;
-const int MapWidth = 40, MapHeight = 23;
+const int BlockWidth = 32, BlockHeight = 32;
+// const int MapWidth = 40, MapHeight = 23;
+const int MapWidth = 20, MapHeight = 20;
 constexpr int FPS = 60;
-const SpriteSheet sprites("assets/sprites/Snake.png", 64, 64, 16, 16);
+const SpriteSheet *sprites;
+
+std::pair<int, int> dirs[] = {
+  std::make_pair(0, -1),
+  std::make_pair(1, 0),
+  std::make_pair(0, 1),
+  std::make_pair(-1, 0)
+};
+
+sf::Texture *backgroundTex;
+sf::Sprite backgroundSp;
 
 using sf::Keyboard;
 
@@ -22,13 +34,24 @@ Game::Game() :
   win(sf::VideoMode(MapWidth * BlockWidth, MapHeight * BlockHeight), "Snake Game"),
   snake(MapWidth/2, MapHeight/2),
   fruit(15, 10) {
+  sprites = new SpriteSheet("assets/sprites/Snake.png", 16, 16);
+  backgroundTex = new sf::Texture;
+  backgroundTex->loadFromFile("assets/sprites/Snake.png", sf::IntRect(16*3, 16*3, 16, 16));
+  backgroundTex->setRepeated(true);
+  backgroundSp.setTexture(*backgroundTex);
+  backgroundSp.setTextureRect(sf::IntRect(0, 0, MapWidth * BlockWidth, MapHeight * BlockHeight));
   win.setFramerateLimit(FPS);
   state = GameState::RUNNING;
 }
 
+Game::~Game() {
+  delete sprites;
+  delete backgroundTex;
+}
+
 void Game::run() {
+  float frametime = 1000.0 / FPS;
   sf::Clock clk;
-  int frametime = 1000 / FPS;
   while (state != GameState::QUIT && win.isOpen()) {
     auto now = clk.getElapsedTime().asMilliseconds();
     if (now < frametime) {
@@ -69,7 +92,8 @@ void Game::game_loop(double dt) {
   }
 
   // redraw
-  win.clear(sf::Color(100, 180, 80, 200));
+  win.clear();
+  win.draw(backgroundSp);
   if (state == GameState::RUNNING) {
     snake.draw(win);
     fruit.draw(win);
