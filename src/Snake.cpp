@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <utility>
-constexpr double SNAKE_TICK_PERIOD = 1.0;
+static constexpr double SNAKE_TICK_PERIOD = 0.1;
 
 Snake::Snake(int snake0x, int snake0y) {
   // initialize a snake with length 3
@@ -32,7 +32,7 @@ void Snake::tick(double dt) {
   if (this->dt < SNAKE_TICK_PERIOD) return;
   this->dt -= SNAKE_TICK_PERIOD;
   for (auto &body_piece: body) {
-    body_piece.tick();
+    body_piece.tick(SNAKE_TICK_PERIOD);
   }
   set_sprite(0, 0);
   for (int i=1; i < (int)body.size()-1; i++) {

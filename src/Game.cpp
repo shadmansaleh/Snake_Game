@@ -23,6 +23,9 @@ const int MapWidth = 40, MapHeight = 22;
 constexpr int FPS = 60;
 const SpriteSheet *sprites;
 
+std::map<std::pair<int, int>, bool> forbidden_blocks;
+
+
 std::pair<int, int> dirs[] = {
   std::make_pair(0, -1),
   std::make_pair(1, 0),
@@ -42,7 +45,7 @@ Game::Game() :
 
   std::srand(std::time(0));
   sprites = new SpriteSheet("assets/sprites/Snake.png", 16, 16);
-  font.loadFromFile("assets/fonts/Debug.otf");
+  font.loadFromFile("assets/fonts/Future TimeSplitters.otf");
   backgroundTex = new sf::Texture;
   backgroundTex->loadFromFile("assets/sprites/Snake.png", sf::IntRect(16*3, 16*3, 16, 16));
   backgroundTex->setRepeated(true);
@@ -92,7 +95,8 @@ void Game::game_loop(double dt) {
   // Update
   if (state == GameState::RUNNING) {
     snake.tick(dt);
-    if (snake.check_hit_body()) {
+    bonus.tick(dt);
+    if (snake.check_hit_body() || forbidden_blocks[snake.body[0].get_pos()]) {
       state = GameState::GAME_OVER;
     }
     if (snake.body[0] == fruit) {
@@ -103,6 +107,14 @@ void Game::game_loop(double dt) {
         restricted[body_piece.get_pos()] = true;
       }
       fruit.reposition(restricted);
+      if (std::rand() % 5 == 0) {
+        bonus.reposition(restricted);
+      }
+    }
+    if (bonus == snake.body[0]) {
+      snake.enlarge();
+      score += bonus.timmer * 10;
+      bonus.timmer = 0;
     }
   }
 
@@ -115,14 +127,15 @@ void Game::game_loop(double dt) {
     tx_score.setFont(font);
     tx_score.setCharacterSize(BlockHeight * 2);
     tx_score.setFillColor(sf::Color::White);
-    std::sprintf(score_txt, "Score: %4d", score);
-    tx_score.setPosition((MapWidth - std::strlen(score_txt) - 2) * BlockWidth, BlockHeight);
+    std::sprintf(score_txt, "Score:%3d", score);
+    tx_score.setPosition((MapWidth - std::strlen(score_txt)+2) * BlockWidth, BlockHeight);
     tx_score.setString(score_txt);
 
     win.draw(tx_score);
   }
   snake.draw(win);
   fruit.draw(win);
+  bonus.draw(win);
   if (state != GameState::RUNNING) {
     sf::Text text;
     text.setFont(font);
@@ -136,7 +149,7 @@ void Game::game_loop(double dt) {
     } else if (state == GameState::GAME_OVER) {
       txt = "GAME OVER";
     }
-    text.setPosition((int(MapWidth/2) - int(txt.length()/2)) * BlockWidth, int(MapHeight * 2 / 3) * BlockHeight);
+    text.setPosition((int(MapWidth/2) - int(txt.length()/2) + (state == GameState::INTRO ? 6 : 0)) * BlockWidth, int(MapHeight * 2 / 3) * BlockHeight);
     text.setString(txt);
     win.draw(text);
   }

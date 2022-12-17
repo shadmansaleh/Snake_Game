@@ -5,16 +5,19 @@
 #include <stdexcept>
 #include <cstdlib>
 
-Fruit::Fruit(int x, int y) : Entity(x, y) {}
-Fruit::Fruit() : Entity(0, 0) {}
+Fruit::Fruit(int x, int y) : Entity(x, y) { init(); }
+Fruit::Fruit() : Entity(0, 0) { init(); }
 
-void Fruit::draw(sf::RenderWindow& win) {
-  auto food = (*sprites)[3][2];
-  food.setPosition((posX+0.5) * BlockWidth, (posY+0.5) * BlockHeight);
-  win.draw(food);
+Fruit::~Fruit() {
+  delete mouse_tex;
 }
 
-void Fruit::tick() {
+void Fruit::draw(sf::RenderWindow& win) {
+  mouse_sprite.setPosition((posX+0.5) * BlockWidth, (posY+0.5) * BlockHeight);
+  win.draw(mouse_sprite);
+}
+
+void Fruit::tick(double) {
   throw std::runtime_error("Fruit can't tick");
 }
 
@@ -29,4 +32,14 @@ void Fruit::reposition(std::map<std::pair<int, int>, bool> &restricted) {
       found = true;
     }
   }
+}
+
+void Fruit::init() {
+  mouse_tex = new sf::Texture;
+  if (!mouse_tex->loadFromFile("assets/sprites/mouse.png")) {
+    throw std::runtime_error("Unable to load sprite");
+  }
+  mouse_sprite.setTexture(*mouse_tex);
+  mouse_sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+  mouse_sprite.setOrigin(32/2, 32/2);
 }

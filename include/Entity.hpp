@@ -13,7 +13,7 @@ public:
   Entity(int x, int y);
   std::pair<int, int> get_pos();
   virtual void draw(sf::RenderWindow&) = 0;  // draw the entity
-  virtual void tick() = 0;  // update the entity
+  virtual void tick(double) = 0;  // update the entity
   friend bool operator==(Entity &x, Entity &y); // collision detection
 
 protected:

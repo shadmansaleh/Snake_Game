@@ -8,5 +8,6 @@ enum GameState {PAUSED, RUNNING, QUIT, INTRO, GAME_OVER};
 const extern int BlockWidth, BlockHeight, MapWidth, MapHeight;
 extern std::pair<int, int> dirs[];
 const extern SpriteSheet *sprites;
+extern std::map<std::pair<int, int>, bool> forbidden_blocks;
 
 #endif // !UTILS_DIR_HPP

@@ -20,6 +20,7 @@ class Game {
     sf::Font font;
     Snake snake;
     Fruit fruit;
+    Bonus bonus;
     GameState state;
     int score;
 
