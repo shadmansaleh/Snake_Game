@@ -7,7 +7,9 @@
 #include "Fruit.hpp"
 #include "Bonus.hpp"
 #include "Utils.hpp"
+#include "Rock.hpp"
 #include "SpriteSheet.hpp"
+#include <vector>
 
 class Game {
   public:
@@ -22,6 +24,7 @@ class Game {
     Fruit fruit;
     Bonus bonus;
     GameState state;
+    std::vector<Rock> rocks;
     int score;
 
     void game_loop(double dt);

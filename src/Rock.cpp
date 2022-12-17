@@ -11,7 +11,7 @@ void Rock::draw(sf::RenderWindow& win) {
   win.draw(rock);
 }
 
-void Rock::tick() {
+void Rock::tick(double) {
   throw std::runtime_error("Fruit can't tick");
 }
 

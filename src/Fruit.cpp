@@ -26,7 +26,8 @@ void Fruit::reposition(std::map<std::pair<int, int>, bool> &restricted) {
   while (!found) {
     int randx = rand() % MapWidth;
     int randy = rand() % MapHeight;
-    if (!restricted[std::make_pair(randx, randy)]) {
+    auto cur_pos = std::make_pair(randx, randy);
+    if (!restricted[cur_pos] && !forbidden_blocks[cur_pos]) {
       posX = randx;
       posY = randy;
       found = true;

@@ -11,6 +11,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <utility>
@@ -21,6 +22,7 @@
 const int BlockWidth = 32, BlockHeight = 32;
 const int MapWidth = 40, MapHeight = 22;
 constexpr int FPS = 60;
+static constexpr int MAP_COUNT = 5;
 const SpriteSheet *sprites;
 
 std::map<std::pair<int, int>, bool> forbidden_blocks;
@@ -44,6 +46,7 @@ Game::Game() :
   score(0) {
 
   std::srand(std::time(0));
+  // setup sprites
   sprites = new SpriteSheet("assets/sprites/Snake.png", 16, 16);
   font.loadFromFile("assets/fonts/Future TimeSplitters.otf");
   backgroundTex = new sf::Texture;
@@ -51,12 +54,29 @@ Game::Game() :
   backgroundTex->setRepeated(true);
   backgroundSp.setTexture(*backgroundTex);
   backgroundSp.setTextureRect(sf::IntRect(0, 0, MapWidth * BlockWidth, MapHeight * BlockHeight));
+
   win.setFramerateLimit(FPS);
+
   std::map<std::pair<int, int>, bool> restricted;
   for (auto &body_piece: snake.body) {
     restricted[body_piece.get_pos()] = true;
   }
   fruit.reposition(restricted);
+
+  // load map
+  int map_no = std::rand() % MAP_COUNT + 1;
+  std::ifstream map_file("assets/maps/map_" + std::to_string(map_no) + ".dat");
+  for (int i=0; i < MapHeight && map_file; i++) {
+    std::string line;
+    getline(map_file, line);
+    for (int j=0; j < int(line.length()) && j < MapWidth; j++) {
+      if (line[j] == '#') {
+        rocks.push_back(Rock(j, i));
+      }
+    }
+  }
+  map_file.close();
+
   state = GameState::INTRO;
 }
 
@@ -121,14 +141,15 @@ void Game::game_loop(double dt) {
   // redraw
   win.clear();
   win.draw(backgroundSp);
+  for (auto &rock: rocks) rock.draw(win);
   {
     sf::Text tx_score;
     char score_txt[20];
     tx_score.setFont(font);
-    tx_score.setCharacterSize(BlockHeight * 2);
+    tx_score.setCharacterSize(BlockHeight);
     tx_score.setFillColor(sf::Color::White);
     std::sprintf(score_txt, "Score:%3d", score);
-    tx_score.setPosition((MapWidth - std::strlen(score_txt)+2) * BlockWidth, BlockHeight);
+    tx_score.setPosition((MapWidth - std::strlen(score_txt)+6) * BlockWidth, 0);
     tx_score.setString(score_txt);
 
     win.draw(tx_score);

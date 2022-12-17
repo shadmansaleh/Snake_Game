@@ -9,7 +9,7 @@ public:
   Rock(int x, int y);
 
   void draw(sf::RenderWindow&);
-  void tick();
+  void tick(double);
 };
 
 #endif // !ROCK_HPP
