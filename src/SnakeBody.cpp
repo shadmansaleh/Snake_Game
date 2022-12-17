@@ -18,5 +18,11 @@ void SnakeBody::tick(double) {
   auto cur_pos = this->get_pos();
   cur_pos.first += dirs[this->move_vector].first * this->move_speed;
   cur_pos.second += dirs[this->move_vector].second * this->move_speed;
+  if (cur_pos.first < 0 || cur_pos.first >= MapWidth) {
+    cur_pos.first += (cur_pos.first < 0 ? MapWidth : -MapWidth);
+  }
+  if (cur_pos.second < 0 || cur_pos.second >= MapHeight) {
+    cur_pos.second += (cur_pos.second < 0 ? MapHeight : -MapHeight);
+  }
   this->set_pos(cur_pos);
 }
