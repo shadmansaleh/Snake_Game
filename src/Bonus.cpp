@@ -19,7 +19,7 @@ void Bonus::tick(double dt) {
 }
 
 void Bonus::reposition(std::map<std::pair<int, int>, bool> &restricted) {
-  Fruit::reposition(restricted);
+  Food::reposition(restricted);
   timmer = 5;
 }
 

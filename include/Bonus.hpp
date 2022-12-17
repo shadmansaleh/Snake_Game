@@ -1,15 +1,15 @@
 #ifndef BONUS_HPP_DEFINED
 #define BONUS_HPP_DEFINED
 
-#include "Fruit.hpp"
+#include "Food.hpp"
 #include "Utils.hpp"
 #include <utility>
 
 
-class Bonus : public Fruit {
+class Bonus : public Food {
 public:
-  Bonus(int x, int y) : Fruit(x, y) {}
-  Bonus() : Fruit() {}
+  Bonus(int x, int y) : Food(x, y) {}
+  Bonus() : Food() {}
 
   void draw(sf::RenderWindow&);
   void reposition(std::map<std::pair<int, int>, bool> &restricted);

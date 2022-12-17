@@ -61,7 +61,7 @@ Game::Game() :
   for (auto &body_piece: snake.body) {
     restricted[body_piece.get_pos()] = true;
   }
-  fruit.reposition(restricted);
+  food.reposition(restricted);
 
   // load map
   int map_no = std::rand() % MAP_COUNT + 1;
@@ -119,14 +119,14 @@ void Game::game_loop(double dt) {
     if (snake.check_hit_body() || forbidden_blocks[snake.body[0].get_pos()]) {
       state = GameState::GAME_OVER;
     }
-    if (snake.body[0] == fruit) {
+    if (snake.body[0] == food) {
       snake.enlarge();
       score++;
       std::map<std::pair<int, int>, bool> restricted;
       for (auto &body_piece: snake.body) {
         restricted[body_piece.get_pos()] = true;
       }
-      fruit.reposition(restricted);
+      food.reposition(restricted);
       if (std::rand() % 5 == 0) {
         bonus.reposition(restricted);
       }
@@ -155,7 +155,7 @@ void Game::game_loop(double dt) {
     win.draw(tx_score);
   }
   snake.draw(win);
-  fruit.draw(win);
+  food.draw(win);
   bonus.draw(win);
   if (state != GameState::RUNNING) {
     sf::Text text;

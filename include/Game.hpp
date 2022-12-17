@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include "Snake.hpp"
-#include "Fruit.hpp"
+#include "Food.hpp"
 #include "Bonus.hpp"
 #include "Utils.hpp"
 #include "Rock.hpp"
@@ -21,7 +21,7 @@ class Game {
     sf::RenderWindow win;
     sf::Font font;
     Snake snake;
-    Fruit fruit;
+    Food food;
     Bonus bonus;
     GameState state;
     std::vector<Rock> rocks;
@@ -29,8 +29,6 @@ class Game {
 
     void game_loop(double dt);
     void handle_keyboard(sf::Event event);
-    void gen_fruit();
-    void gen_bonus();
 };
 
 #endif // GAME_HPP_DEFINED

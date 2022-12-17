@@ -1,5 +1,5 @@
-#ifndef FRUIT_HPP_DEFINED
-#define FRUIT_HPP_DEFINED
+#ifndef FOOD_HPP_DEFINED
+#define FOOD_HPP_DEFINED
 
 #include "Entity.hpp"
 #include <SFML/Graphics/Texture.hpp>
@@ -7,11 +7,11 @@
 #include <utility>
 
 
-class Fruit : public Entity {
+class Food : public Entity {
 public:
-  Fruit(int x, int y);
-  Fruit();
-  ~Fruit();
+  Food(int x, int y);
+  Food();
+  ~Food();
 
   void draw(sf::RenderWindow&);
   void tick(double);
@@ -24,4 +24,4 @@ private:
   void init();
 };
 
-#endif // FRUIT_HPP_DEFINED
+#endif // FOOD_HPP_DEFINED

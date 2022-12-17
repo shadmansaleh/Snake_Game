@@ -1,27 +1,27 @@
-#include "Fruit.hpp"
+#include "Food.hpp"
 #include "SnakeBody.hpp"
 #include "Utils.hpp"
 #include <cmath>
 #include <stdexcept>
 #include <cstdlib>
 
-Fruit::Fruit(int x, int y) : Entity(x, y) { init(); }
-Fruit::Fruit() : Entity(0, 0) { init(); }
+Food::Food(int x, int y) : Entity(x, y) { init(); }
+Food::Food() : Entity(0, 0) { init(); }
 
-Fruit::~Fruit() {
+Food::~Food() {
   delete mouse_tex;
 }
 
-void Fruit::draw(sf::RenderWindow& win) {
+void Food::draw(sf::RenderWindow& win) {
   mouse_sprite.setPosition((posX+0.5) * BlockWidth, (posY+0.5) * BlockHeight);
   win.draw(mouse_sprite);
 }
 
-void Fruit::tick(double) {
-  throw std::runtime_error("Fruit can't tick");
+void Food::tick(double) {
+  throw std::runtime_error("Food can't tick");
 }
 
-void Fruit::reposition(std::map<std::pair<int, int>, bool> &restricted) {
+void Food::reposition(std::map<std::pair<int, int>, bool> &restricted) {
   bool found = false;
   while (!found) {
     int randx = rand() % MapWidth;
@@ -35,7 +35,7 @@ void Fruit::reposition(std::map<std::pair<int, int>, bool> &restricted) {
   }
 }
 
-void Fruit::init() {
+void Food::init() {
   mouse_tex = new sf::Texture;
   if (!mouse_tex->loadFromFile("assets/sprites/mouse.png")) {
     throw std::runtime_error("Unable to load sprite");
